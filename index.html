@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Música y Frecuencias Conscientes | Jeanett Sodi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1A1AFF;
+    --gold:#A48D47;
+    --purple:#8d1aff;
+    --white:#FFFFFF;
+    --ink:#1c1c22;
+    --paper:#fbfaf8;
+    --line:#e7e5e0;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Manrope',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Signature: soundwave motif ---------- */
+  .wave{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    height:28px;
+  }
+  .wave span{
+    display:block;
+    width:3px;
+    border-radius:3px;
+    background:currentColor;
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  .wave span:nth-child(1){height:10px; animation-delay:0s;}
+  .wave span:nth-child(2){height:22px; animation-delay:.15s;}
+  .wave span:nth-child(3){height:14px; animation-delay:.3s;}
+  .wave span:nth-child(4){height:26px; animation-delay:.45s;}
+  .wave span:nth-child(5){height:12px; animation-delay:.6s;}
+  .wave span:nth-child(6){height:20px; animation-delay:.75s;}
+  .wave span:nth-child(7){height:9px; animation-delay:.9s;}
+  @keyframes pulse{
+    0%,100%{transform:scaleY(.5); opacity:.55;}
+    50%{transform:scaleY(1); opacity:1;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .wave span{animation:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  header{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 140% at 15% 0%, rgba(141,26,255,.55), transparent 55%),
+      radial-gradient(120% 140% at 85% 100%, rgba(26,26,255,.65), transparent 55%),
+      linear-gradient(135deg, var(--blue), var(--purple));
+    color:var(--white);
+    padding:76px 24px 92px;
+    text-align:center;
+  }
+  header .eyebrow{
+    font-size:.78rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    opacity:.85;
+    font-weight:600;
+    margin-bottom:18px;
+  }
+  header h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.1rem, 5vw, 3.1rem);
+    margin:0 0 14px;
+    letter-spacing:.2px;
+  }
+  header p.tag{
+    max-width:520px;
+    margin:0 auto;
+    opacity:.9;
+    font-size:1rem;
+    font-weight:400;
+  }
+  header .wave{color:rgba(255,255,255,.85); margin:26px auto 0;}
+
+  .container{max-width:760px; margin:0 auto; padding:0 20px;}
+
+  /* ---------- Intro card ---------- */
+  .intro{
+    margin-top:-52px;
+    background:var(--white);
+    padding:36px 34px;
+    border-radius:18px;
+    box-shadow:0 20px 45px -20px rgba(26,26,255,.25);
+    border-top:4px solid var(--gold);
+    position:relative;
+    z-index:2;
+  }
+  .intro p{margin:0 0 16px; font-size:1.02rem;}
+  .intro p:last-of-type{margin-bottom:0;}
+  .intro a{
+    color:var(--gold);
+    font-weight:700;
+    text-decoration:none;
+    border-bottom:1px solid rgba(164,141,71,.4);
+    padding-bottom:1px;
+  }
+  .intro a:hover{border-color:var(--gold);}
+  .brand-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    color:var(--blue);
+    font-size:1.05rem;
+    margin-bottom:6px;
+  }
+  .brand-line .role{
+    font-family:'Manrope',sans-serif;
+    font-weight:500;
+    font-size:.8rem;
+    color:#6a6a75;
+    letter-spacing:.02em;
+  }
+
+  /* ---------- Form section ---------- */
+  main{padding:48px 0 80px;}
+
+  .progress-wrap{
+    position:sticky;
+    top:0;
+    z-index:5;
+    background:var(--paper);
+    padding:14px 0 18px;
+  }
+  .progress-track{
+    height:6px;
+    border-radius:6px;
+    background:var(--line);
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--purple), var(--blue));
+    transition:width .35s ease;
+  }
+  .progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-size:.75rem;
+    color:#7a7a85;
+    margin-top:6px;
+    font-weight:600;
+    letter-spacing:.03em;
+  }
+
+  .form-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:30px 30px 26px;
+    margin-bottom:20px;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .form-card.answered{
+    border-color:rgba(164,141,71,.5);
+    box-shadow:0 8px 24px -16px rgba(164,141,71,.5);
+  }
+  .form-card .qnum{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:rgba(26,26,255,.08);
+    color:var(--blue);
+    font-size:.78rem;
+    font-weight:800;
+    margin-right:10px;
+    flex:none;
+  }
+  h3{
+    display:flex;
+    align-items:center;
+    color:var(--ink);
+    margin:0 0 20px;
+    font-weight:700;
+    font-size:1.05rem;
+    line-height:1.4;
+  }
+
+  .options{display:flex; flex-direction:column; gap:2px;}
+  label.opt{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:500;
+    transition:background .15s;
+  }
+  label.opt:hover{background:#f5f4ff;}
+  input[type="radio"], input[type="checkbox"]{
+    accent-color:var(--purple);
+    width:18px;
+    height:18px;
+    cursor:pointer;
+    flex:none;
+  }
+
+  input[type="text"], textarea{
+    width:100%;
+    padding:13px 14px;
+    margin-top:12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-family:'Manrope',sans-serif;
+    font-size:.98rem;
+    background:var(--paper);
+    resize:vertical;
+  }
+  input[type="text"]:focus, textarea:focus{
+    outline:none;
+    border-color:var(--purple);
+    box-shadow:0 0 0 3px rgba(141,26,255,.15);
+    background:var(--white);
+  }
+
+  .required-mark{color:var(--purple); margin-left:4px; font-size:.85em;}
+  .helper{font-size:.82rem; color:#8a8a94; margin-top:14px;}
+  .field-error{
+    display:none;
+    color:#c0392b;
+    font-size:.82rem;
+    font-weight:600;
+    margin-top:12px;
+  }
+  .form-card.error{border-color:#e0a0a0;}
+  .form-card.error .field-error{display:block;}
+
+  .submit-btn{
+    background:linear-gradient(135deg, var(--gold), #8a7538);
+    color:var(--white);
+    border:none;
+    padding:19px 40px;
+    font-size:1.05rem;
+    font-weight:700;
+    border-radius:14px;
+    cursor:pointer;
+    display:block;
+    width:100%;
+    margin-top:8px;
+    font-family:'Manrope',sans-serif;
+    letter-spacing:.01em;
+    transition:transform .18s, box-shadow .18s, opacity .18s;
+    box-shadow:0 14px 30px -12px rgba(164,141,71,.55);
+  }
+  .submit-btn:hover{transform:translateY(-2px); box-shadow:0 18px 34px -12px rgba(164,141,71,.7);}
+  .submit-btn:disabled{background:#ccc; cursor:not-allowed; box-shadow:none; transform:none;}
+  .submit-hint{text-align:center; font-size:.8rem; color:#9a9aa4; margin-top:12px;}
+
+  /* ---------- Outro ---------- */
+  .outro{
+    background:linear-gradient(135deg, rgba(26,26,255,.05), rgba(141,26,255,.05));
+    padding:32px 30px;
+    border-radius:16px;
+    margin-top:36px;
+    border-left:4px solid var(--purple);
+    font-size:.98rem;
+  }
+  .outro p{margin:0 0 12px;}
+  .outro p:last-child{margin-bottom:0;}
+
+  /* ---------- Success ---------- */
+  #successMessage{
+    display:none;
+    text-align:center;
+    padding:60px 34px;
+    background:var(--white);
+    border-radius:18px;
+    border-top:5px solid var(--purple);
+    box-shadow:0 20px 45px -20px rgba(141,26,255,.3);
+    margin-top:20px;
+  }
+  #successMessage .wave{color:var(--purple); margin-bottom:14px;}
+  #successMessage h2{
+    font-family:'Fraunces',serif;
+    color:var(--blue);
+    font-size:1.9rem;
+    margin:0 0 14px;
+  }
+  #successMessage p{font-size:1.05rem; color:#333; margin-bottom:10px;}
+  #successMessage .lead{font-weight:700;}
+  .insta-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    justify-content:center;
+    margin:22px 0 28px;
+  }
+  .insta-btn{
+    display:inline-block;
+    padding:15px 32px;
+    background:linear-gradient(135deg, var(--purple), var(--blue));
+    color:var(--white);
+    text-decoration:none;
+    border-radius:30px;
+    font-weight:700;
+    font-size:.98rem;
+    box-shadow:0 12px 26px -12px rgba(141,26,255,.55);
+    transition:transform .18s;
+  }
+  .insta-btn:hover{transform:translateY(-2px); color:var(--white);}
+  .close-btn{
+    background:transparent;
+    border:1.5px solid var(--line);
+    padding:11px 26px;
+    border-radius:30px;
+    cursor:pointer;
+    color:#555;
+    font-family:'Manrope',sans-serif;
+    font-weight:600;
+    font-size:.9rem;
+    transition:all .18s;
+  }
+  .close-btn:hover{background:#f2f2f2;}
+
+  footer{
+    text-align:center;
+    padding:30px 20px 50px;
+    font-size:.78rem;
+    color:#9a9aa4;
+  }
+
+  @media (max-width:600px){
+    header{padding:60px 20px 80px;}
+    .intro{padding:26px 22px;}
+    .form-card{padding:24px 20px 20px;}
+    .outro, #successMessage{padding:26px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Música y Frecuencias Conscientes</div>
+  <h1>Diseñemos tu experiencia sonora</h1>
+  <p class="tag">Unas preguntas rápidas para entender tu proyecto y co-crear el sonido ideal para tus objetivos.</p>
+  <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</header>
+
+<div class="container">
+
+  <!-- Mensaje de Éxito (Oculto inicialmente) -->
+  <div id="successMessage">
+    <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <h2>¡Felicitaciones! 🎉</h2>
+    <p class="lead">Tu información se analizará y estaremos contactándote.</p>
+    <p>Puedes seguir explorando nuestros últimos proyectos aquí:</p>
+
+    <div class="insta-links">
+      <a href="https://www.instagram.com/luzauracreativa/" target="_blank" rel="noopener" class="insta-btn">Visitar Instagram @luzauracreativa</a>
+      <a href="https://www.instagram.com/vivesinanestesia/" target="_blank" rel="noopener" class="insta-btn">Visitar Instagram @vivesinanestesia</a>
+    </div>
+
+    <button class="close-btn" onclick="window.close();">Cerrar pestaña</button>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro" id="mainContent">
+    <div class="brand-line">Jeanett Sodi <span class="role">· Mentora en Reconfiguración de la Identidad</span></div>
+    <p>Me da mucho gusto poder conocer un poco más sobre tu proyecto y así poder personalizar la experiencia de acuerdo a tus requerimientos. Te dejo unas preguntas que nos darán claridad sobre tus propósitos, para co-crear esta experiencia de la mejor forma, adaptada a tus objetivos.</p>
+    <p>Los proyectos musicales conscientes nos invitan a consolidar un proyecto de alto nivel para el bienestar del ser. Estoy aquí para apoyarte, junto a mi equipo. 🎧</p>
+    <a href="http://musicayfrecuenciasconscientes.com" target="_blank" rel="noopener">musicayfrecuenciasconscientes.com →</a>
+  </div>
+
+  <main>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label"><span id="progressText">0 de 5 respondidas</span><span id="progressPct">0%</span></div>
+    </div>
+
+    <form id="contactoForm" novalidate>
+
+      <input type="hidden" name="_subject" value="Nuevas respuestas - Landing Jeaneth">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+
+      <!-- Pregunta 1 -->
+      <div class="form-card" data-q="1">
+        <h3><span class="qnum">1</span>¿Qué estado o resultado te interesa explorar con el sonido?<span class="required-mark">*</span></h3>
+        <div class="options">
+          <label class="opt"><input type="radio" name="1. Estado a explorar" value="Concentración profunda"> Concentración profunda</label>
+          <label class="opt"><input type="radio" name="1. Estado a explorar" value="Relajación"> Relajación</label>
+          <label class="opt"><input type="radio" name="1. Estado a explorar" value="Creatividad"> Creatividad</label>
+          <label class="opt"><input type="radio" name="1. Estado a explorar" value="Energía"> Energía</label>
+          <label class="opt"><input type="radio" name="1. Estado a explorar" value="Apertura emocional"> Apertura emocional</label>
+          <label class="opt"><input type="radio" name="1. Estado a explorar" value="Meditación"> Meditación</label>
+          <label class="opt"><input type="radio" name="1. Estado a explorar" value="Otro"> Otro, describirlo:</label>
+        </div>
+        <input type="text" name="1. Otro estado descrito" placeholder="Escribe tu respuesta aquí...">
+        <p class="field-error">Selecciona una opción para continuar.</p>
+      </div>
+
+      <!-- Pregunta 2 -->
+      <div class="form-card" data-q="2">
+        <h3><span class="qnum">2</span>¿Dónde te gustaría aplicarlo?<span class="required-mark">*</span></h3>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="2. Dónde aplicarlo" value="Uso personal"> Uso personal</label>
+          <label class="opt"><input type="checkbox" name="2. Dónde aplicarlo" value="En mis programas"> En mis programas</label>
+          <label class="opt"><input type="checkbox" name="2. Dónde aplicarlo" value="En mis sesiones"> En mis sesiones</label>
+          <label class="opt"><input type="checkbox" name="2. Dónde aplicarlo" value="En eventos presenciales y online"> En eventos presenciales y online</label>
+          <label class="opt"><input type="checkbox" name="2. Dónde aplicarlo" value="Con tu comunidad"> Con tu comunidad</label>
+          <label class="opt"><input type="checkbox" name="2. Dónde aplicarlo" value="Con tus clientes empresariales"> Con tus clientes empresariales</label>
+        </div>
+        <p class="field-error">Selecciona al menos una opción.</p>
+      </div>
+
+      <!-- Pregunta 3 -->
+      <div class="form-card" data-q="3">
+        <h3><span class="qnum">3</span>¿Qué te interesa aprender más?<span class="required-mark">*</span></h3>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="3. Aprender más" value="Cómo influyen los sonidos en las personas"> Cómo influyen los sonidos en las personas</label>
+          <label class="opt"><input type="checkbox" name="3. Aprender más" value="Cómo elegirlos"> Cómo elegirlos</label>
+          <label class="opt"><input type="checkbox" name="3. Aprender más" value="Cómo diseñar experiencias sonoras"> Cómo diseñar experiencias sonoras</label>
+          <label class="opt"><input type="checkbox" name="3. Aprender más" value="¿Cómo combinar música, voz, frecuencias y otros estímulos?"> ¿Cómo combinar música, voz, frecuencias y otros estímulos?</label>
+        </div>
+        <p class="field-error">Selecciona al menos una opción.</p>
+      </div>
+
+      <!-- Pregunta 4 -->
+      <div class="form-card" data-q="4">
+        <h3><span class="qnum">4</span>¿Te gustaría aprender a crear estos recursos?<span class="required-mark">*</span></h3>
+        <div class="options">
+          <label class="opt"><input type="radio" name="4. Aprender a crear recursos" value="Tú misma"> Tú misma</label>
+          <label class="opt"><input type="radio" name="4. Aprender a crear recursos" value="Desarrollar alguno conmigo"> Desarrollar alguno conmigo</label>
+          <label class="opt"><input type="radio" name="4. Aprender a crear recursos" value="Aprender también cómo integrarlos estratégicamente en tus programas"> Aprender también cómo integrarlos estratégicamente en tus programas</label>
+        </div>
+        <p class="field-error">Selecciona una opción para continuar.</p>
+      </div>
+
+      <!-- Pregunta 5 -->
+      <div class="form-card" data-q="5">
+        <h3><span class="qnum">5</span>¿Qué otro tema, resultado o tipo de experiencia quieres explorar?<span class="required-mark">*</span></h3>
+        <p class="helper" style="margin-top:-10px; margin-bottom:14px;">Puede ser que lo que estás buscando no esté exactamente entre las opciones anteriores. Cuéntame más.</p>
+        <textarea name="5. Otro tema a explorar" rows="4" placeholder="Escribe tu respuesta aquí..." required></textarea>
+        <p class="field-error">Cuéntanos un poco más en este campo.</p>
+      </div>
+
+      <button type="submit" id="submitBtn" class="submit-btn">Enviar respuestas</button>
+      <p class="submit-hint">Todas las preguntas son obligatorias · tus respuestas llegan directo a Jeanett</p>
+    </form>
+
+    <div class="outro">
+      <p>Con lo que me cuentes podré entender mucho mejor qué tipo de curso o experiencia tendría sentido diseñar para ti. 🎧</p>
+      <p>Podría enseñarte cómo la música, la voz, las frecuencias y el ritmo influyen en nuestros estados internos 🧠🎶, y también cómo crear experiencias sonoras personalizadas con intención e IA para integrarlas en tus programas, sesiones o proyectos. Y si imaginas algo diferente, cuéntame qué te gustaría aprender o crear.</p>
+    </div>
+  </main>
+</div>
+
+<footer>Música y Frecuencias Conscientes · Jeanett Sodi</footer>
+
+<script>
+(function(){
+  const form = document.getElementById('contactoForm');
+  const cards = Array.from(form.querySelectorAll('.form-card'));
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const progressPct = document.getElementById('progressPct');
+
+  function cardIsAnswered(card){
+    const q = card.dataset.q;
+    if(q === '1'){
+      const checked = card.querySelector('input[type="radio"]:checked');
+      if(!checked) return false;
+      if(checked.value === 'Otro'){
+        const other = card.querySelector('input[name="1. Otro estado descrito"]');
+        return other.value.trim().length > 0;
+      }
+      return true;
+    }
+    if(q === '2' || q === '3'){
+      return card.querySelectorAll('input[type="checkbox"]:checked').length > 0;
+    }
+    if(q === '4'){
+      return !!card.querySelector('input[type="radio"]:checked');
+    }
+    if(q === '5'){
+      return card.querySelector('textarea').value.trim().length > 0;
+    }
+    return false;
+  }
+
+  function updateProgress(){
+    let answered = 0;
+    cards.forEach(card=>{
+      const ok = cardIsAnswered(card);
+      card.classList.toggle('answered', ok);
+      if(ok){
+        card.classList.remove('error');
+        answered++;
+      }
+    });
+    const pct = Math.round((answered / cards.length) * 100);
+    progressFill.style.width = pct + '%';
+    progressText.textContent = answered + ' de ' + cards.length + ' respondidas';
+    progressPct.textContent = pct + '%';
+  }
+
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+  updateProgress();
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    let firstInvalid = null;
+    cards.forEach(card=>{
+      const ok = cardIsAnswered(card);
+      card.classList.toggle('error', !ok);
+      if(!ok && !firstInvalid) firstInvalid = card;
+    });
+
+    if(firstInvalid){
+      firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.innerText = 'Enviando respuestas...';
+    btn.disabled = true;
+
+    const formData = new FormData(form);
+
+    fetch('https://formsubmit.co/ajax/luzyconsultora@gmail.com', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(() => {
+      document.getElementById('mainContent').style.display = 'none';
+      document.querySelector('main').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+      window.scrollTo({top:0, behavior:'smooth'});
+    })
+    .catch(error => {
+      console.error(error);
+      btn.innerText = 'Hubo un error. Inténtalo de nuevo.';
+      btn.disabled = false;
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
